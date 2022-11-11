@@ -347,6 +347,16 @@ func ReadConfig(cfg *types.Config, path string) error {
 			err = yaml.Unmarshal([]byte(config.RopstenChainYml), &cfg.Chain.Config)
 		case "sepolia":
 			err = yaml.Unmarshal([]byte(config.SepoliaChainYml), &cfg.Chain.Config)
+		case "testnet":
+			f, err := os.Open("testnet.yml")
+			if err != nil {
+				return fmt.Errorf("error opening config file %v: %v", path, err)
+			}
+
+			err = yaml.NewDecoder(f).Decode(&cfg.Chain.Config)
+			if err != nil {
+				return fmt.Errorf("error decoding config file %v: %v", path, err)
+			}
 		default:
 			return fmt.Errorf("tried to set known chain-config, but unknown chain-name")
 		}
