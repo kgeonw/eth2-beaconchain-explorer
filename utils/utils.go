@@ -310,7 +310,7 @@ func WaitForCtrlC() {
 }
 
 // ReadConfig will process a configuration
-func ReadConfig(cfg *types.Config, path string) error {
+func ReadConfig(cfg *types.Config, path string, testnet string) error {
 
 	if strings.HasPrefix(path, "projects/") {
 		x, err := AccessSecretVersion(path)
@@ -348,7 +348,7 @@ func ReadConfig(cfg *types.Config, path string) error {
 		case "sepolia":
 			err = yaml.Unmarshal([]byte(config.SepoliaChainYml), &cfg.Chain.Config)
 		case "testnet":
-			f, err := os.Open("./testnet.yml")
+			f, err := os.Open(testnet)
 			if err != nil {
 				return fmt.Errorf("error opening config file %v: %v", path, err)
 			}

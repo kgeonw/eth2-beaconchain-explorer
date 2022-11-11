@@ -55,10 +55,12 @@ func init() {
 
 func main() {
 	configPath := flag.String("config", "", "Path to the config file, if empty string defaults will be used")
+	testnetConfig := flag.String("testnet-config", "", "Path to testnet config file")
+
 	flag.Parse()
 
 	cfg := &types.Config{}
-	err := utils.ReadConfig(cfg, *configPath)
+	err := utils.ReadConfig(cfg, *configPath, *testnetConfig)
 	if err != nil {
 		logrus.Fatalf("error reading config file: %v", err)
 	}
