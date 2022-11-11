@@ -348,7 +348,7 @@ func ReadConfig(cfg *types.Config, path string) error {
 		case "sepolia":
 			err = yaml.Unmarshal([]byte(config.SepoliaChainYml), &cfg.Chain.Config)
 		case "testnet":
-			f, err := os.Open("testnet.yml")
+			f, err := os.Open("./testnet.yml")
 			if err != nil {
 				return fmt.Errorf("error opening config file %v: %v", path, err)
 			}
